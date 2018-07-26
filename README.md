@@ -1,6 +1,5 @@
 # RecyclerViewTabLayout
 
-![image](https://github.com/Cornflower1991/RecyclerViewTabLayout/blob/master/img/picture.png)
 ![image](https://github.com/Cornflower1991/RecyclerViewTabLayout/blob/master/img/video.gif)
 
 
