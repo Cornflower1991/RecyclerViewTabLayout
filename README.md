@@ -1,5 +1,15 @@
 # RecyclerViewTabLayout
 
+![](http://cornflower1991.qiniudn.com/18-7-26/74742571.jpg)
+![](http://cornflower1991.qiniudn.com/18-7-26/21495159.jpg)
+
+
+- 页面布局，采用CoordinatorLayout嵌套Recyclerview,TabLayout吸顶。和支付宝页面类似
+- 内容区域采取嵌套Recyclerview的方式，复用同一个ViewPool
+
+
+
+
 ##### 仿支付宝“全部应用”模块，联动布局
 1. 解决scrollToPositionWithOffset没有滚动动画的问题
 2. 解决偶现点击TabLayout RecyclerView不滚动的问题
@@ -82,5 +92,8 @@ mLinearLayoutManager.startSmoothScroll(mSmoothScroller);
             }
         }
 ```
+
+#### 解决偶现点击TabLayout RecyclerView不滚动的问题
+加入FixAppBarLayoutBehavior解决问题
 
 
