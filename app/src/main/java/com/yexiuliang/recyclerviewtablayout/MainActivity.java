@@ -32,15 +32,41 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
+    /**
+     * TabLayout
+     */
     private TabLayout mTabLayout;
+    /**
+     * 内容列表
+     */
     private RecyclerView mRecyclerView;
-
-    private boolean isScroll;
-    private LinearLayoutManager mLinearLayoutManager;
-    private ArrayList<Item> mItems;
-    private int mRecyclerViewHeight;
-    private SmoothScroller mSmoothScroller;
+    /**
+     * AppBarLayout
+     */
     private AppBarLayout mAppBar;
+
+    /**
+     * LinearLayoutManager
+     */
+    private LinearLayoutManager mLinearLayoutManager;
+    /**
+     * 数据源
+     */
+    private ArrayList<Item> mItems;
+
+
+    /**
+     * 是否处于滚动状态，避免连锁反应
+     */
+    private boolean isScroll;
+    /**
+     * RecyclerView高度
+     */
+    private int mRecyclerViewHeight;
+    /**
+     * 平滑滚动 Scroller
+     */
+    private SmoothScroller mSmoothScroller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         mItems.add(item1);
         mItems.add(item2);
         mItems.add(item3);
+        //这里模仿接口回调，动态设置TabLayout和RecyclerView 相同数据。保证position
         for (Item it : mItems) {
             mTabLayout.addTab(mTabLayout.newTab().setText(it.name));
         }
@@ -114,14 +141,14 @@ public class MainActivity extends AppCompatActivity {
                 //点击tab的时候，RecyclerView自动滑到该tab对应的item位置
                 int position = tab.getPosition();
                 if (!isScroll) {
-//                    mIndex=position;
-////                    moveToPosition(position);
+                    // 不会滚动到顶部，出现了就不滚动
 //                    mRecyclerView.smoothScrollToPosition(position);
-//                    mRecyclerView.scrollToPosition(position);
+                    // 没有动画
 //                    mLinearLayoutManager.scrollToPositionWithOffset(position, 0);
-//                    mSmoothScroller.setTargetPosition(position);
-//                    mLinearLayoutManager.startSmoothScroll(mSmoothScroller);
-                    mRecyclerView.smoothScrollToPosition(position);
+                    // 有动画且滚动到顶部
+                    mSmoothScroller.setTargetPosition(position);
+                    mLinearLayoutManager.startSmoothScroll(mSmoothScroller);
+
                 }
             }
 
@@ -139,19 +166,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         mSmoothScroller = new LinearSmoothScroller(this) {
-            @Override protected int getVerticalSnapPreference() {
+            @Override
+            protected int getVerticalSnapPreference() {
                 return LinearSmoothScroller.SNAP_TO_START;
             }
 
             @Nullable
             @Override
             public PointF computeScrollVectorForPosition(int targetPosition) {
-                return super.computeScrollVectorForPosition(targetPosition);
+                return mLinearLayoutManager.computeScrollVectorForPosition(targetPosition);
             }
         };
 
-        mLinearLayoutManager = new LinearLayoutManagerWithSmoothScroller(this){
-        };
+        mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
@@ -228,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()) {
                     @Override
                     public boolean canScrollVertically() {
+                        //保证嵌套滚动不冲突
                         return false;
                     }
 
