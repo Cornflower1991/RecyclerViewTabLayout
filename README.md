@@ -1,0 +1,5 @@
+# RecyclerViewTabLayout
+仿支付宝“全部应用”模块，联动布局
+1.解决scrollToPositionWithOffset没有滚动动画的问题
+2.解决偶现点击TabLayout RecyclerView不滚动的问题
+3.RecyclerView滑动过程TabLayout平滑滚动动画
