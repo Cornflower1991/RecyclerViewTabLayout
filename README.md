@@ -1,7 +1,7 @@
 # RecyclerViewTabLayout
 
-![](http://github.com/Cornflower1991/RecyclerViewTabLayout/raw/master/img/picture.png)
-![](http://github.com/Cornflower1991/RecyclerViewTabLayout/raw/master/img/video.gif)
+![image](https://github.com/Cornflower1991/RecyclerViewTabLayout/blob/master/img/picture.png)
+![image](https://github.com/Cornflower1991/RecyclerViewTabLayout/blob/master/img/video.gif)
 
 
 - 页面布局，采用CoordinatorLayout嵌套Recyclerview,TabLayout吸顶。和支付宝页面类似
